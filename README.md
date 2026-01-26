@@ -1,4 +1,4 @@
-# Game Recommendation System 🎮
+# Game Recommendation System 
 
 A comprehensive recommendation system for Steam games built with TensorFlow, featuring three distinct machine learning models (Autoencoder, Matrix Factorization, and TFRS) and a production-ready Flask API.
 
@@ -601,4 +601,4 @@ For questions or support, please open an issue on GitHub.
 
 ---
 
-**Built with /\*** using TensorFlow, Flask, and MLflow**
+**Built with /** using TensorFlow, Flask, and MLflow**
