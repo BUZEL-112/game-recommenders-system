@@ -31,29 +31,29 @@ The system supports three different recommendation models:
 
 ## Features
 
-✨ **Multiple Recommendation Strategies**
+ **Multiple Recommendation Strategies**
 - User-based collaborative filtering (MF, TFRS)
 - Item-based content similarity (Autoencoder)
 - Hybrid recommendation approaches
 
-📊 **Complete ML Pipeline**
+ **Complete ML Pipeline**
 - Automated data ingestion from public datasets
 - Feature engineering and preprocessing
 - Model training with MLflow experiment tracking
 - Comprehensive evaluation metrics
 
-🚀 **Production-Ready API**
+ **Production-Ready API**
 - RESTful Flask API with CORS support
 - Batch recommendation endpoints
 - Pagination and search functionality
 - Health monitoring and error handling
 
-📈 **Experiment Tracking**
+ **Experiment Tracking**
 - MLflow integration for all training runs
 - Hyperparameter logging
 - Metric visualization and comparison
 
-🐳 **Containerization**
+ **Containerization**
 - Docker support for easy deployment
 - Environment consistency
 
@@ -601,4 +601,4 @@ For questions or support, please open an issue on GitHub.
 
 ---
 
-**Built with ❤️ using TensorFlow, Flask, and MLflow**
+**Built with /\*** using TensorFlow, Flask, and MLflow**
