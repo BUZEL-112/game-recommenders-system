@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/FAKER-112/game-recommenders-system)
+
 # Game Recommendation System 
 
 A comprehensive recommendation system for Steam games built with TensorFlow, featuring three distinct machine learning models (Autoencoder, Matrix Factorization, and TFRS) and a production-ready Flask API.
