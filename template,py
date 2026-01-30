@@ -6,64 +6,60 @@ structure = [
     "requirements.txt",
     "setup.py",
     ".gitignore",
-    {"data": [{"raw":[]}, {"processed":[]}, {"external": []}]},
-    {"notebooks": [
-        "01_eda.ipynb",
-        "02_feature_engineering.ipynb",
-        "03_model_selection.ipynb"
-    ]},
-    {"src": [
-        "__init__.py",
-        {"data": [
+    {"data": [{"raw": []}, {"processed": []}, {"external": []}]},
+    {
+        "notebooks": [
+            "01_eda.ipynb",
+            "02_feature_engineering.ipynb",
+            "03_model_selection.ipynb",
+        ]
+    },
+    {
+        "src": [
             "__init__.py",
-            "load_data.py",
-            "clean_data.py",
-            "feature_engineering.py"
-        ]},
-        {"models": [
-            "__init__.py",
-            "build_model.py",
-            "train_model.py",
-            "evaluate_model.py",
-            "save_load.py"
-        ]},
-        {"utils": [
-            "__init__.py",
-            "config_parser.py",
-            "logger.py",
-            "metrics.py"
-        ]},
-        {"pipeline": [
-            "__init__.py",
-            "train_pipeline.py",
-            "evaluate_pipeline.py",
-            "predict_pipeline.py"
-        ]}
-    ]},
-    {"configs": [
-        "config.yaml",
-        "model_params.yaml",
-        "pipeline_params.yaml"
-    ]},
-    {"tests": [
-        "test_data.py",
-        "test_model.py",
-        "test_pipeline.py"
-    ]},
-    {"scripts": [
-        "run_train.py",
-        "run_eval.py",
-        "run_infer.py"
-    ]},
-    {"artifacts": [
-        {"models" : []},
-        {"metrics":[] },
-        {"plots":[]}
-    ]},
-    {"docker": [
-        "Dockerfile",
-        "docker-compose.yaml"
-    ]}
+            {
+                "data": [
+                    "__init__.py",
+                    "load_data.py",
+                    "clean_data.py",
+                    "feature_engineering.py",
+                ]
+            },
+            {
+                "models": [
+                    "__init__.py",
+                    "build_model.py",
+                    "train_model.py",
+                    "evaluate_model.py",
+                    "save_load.py",
+                ]
+            },
+            {"utils": ["__init__.py", "config_parser.py", "logger.py", "metrics.py"]},
+            {
+                "pipeline": [
+                    "__init__.py",
+                    "train_pipeline.py",
+                    "evaluate_pipeline.py",
+                    "predict_pipeline.py",
+                ]
+            },
+        ]
+    },
+    {"configs": ["config.yaml", "model_params.yaml", "pipeline_params.yaml"]},
+    {"tests": ["test_data.py", "test_model.py", "test_pipeline.py"]},
+    {"scripts": ["run_train.py", "run_eval.py", "run_infer.py"]},
+    {"artifacts": [{"models": []}, {"metrics": []}, {"plots": []}]},
+    {"docker": ["Dockerfile", "docker-compose.yaml"]},
+    {
+        "terraform": [
+            "main.tf",
+            "variables.tf",
+            "outputs.tf",
+            "providers.tf",
+            "terraform.tfvars",
+            {"modules": [{"vpc": ["main.tf", "variables.tf", "outputs.tf"]}]},
+        ]
+    },
 ]
 
 

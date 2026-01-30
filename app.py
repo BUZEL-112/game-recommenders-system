@@ -26,6 +26,8 @@ import json
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+import webbrowser
+import threading
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import logging
@@ -472,7 +474,13 @@ def get_game_by_id(game_id):
 
 @app.route("/")
 def home():
-    """Home endpoint with API information."""
+    """Serve the frontend HTML."""
+    return render_template("index.html")
+
+
+@app.route("/api/info")
+def api_info():
+    """API information endpoint."""
     return jsonify(
         {
             "status": "success",

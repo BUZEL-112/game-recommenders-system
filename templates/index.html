@@ -99,6 +99,7 @@
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--steam-light-blue), var(--steam-blue));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -535,7 +536,7 @@
             </div>
             <div class="game-grid" id="recommendationsGrid"></div>
             <div id="recommendationsEmptyState" class="empty-state" style="display: none;">
-                <div class="empty-state-icon">🎯</div>
+                <div class="empty-state-icon"></div>
                 <h2>Select a User to Get Started</h2>
                 <p>Choose a user from the dropdown above to see personalized recommendations</p>
             </div>
@@ -602,7 +603,8 @@
 
     <script>
         // Configuration
-        const API_BASE_URL = 'http://127.0.0.1:5000'; // Relative URL since it's served from same server
+        // if you are running the docker image  change the url i did not update the image 
+        const API_BASE_URL = ''; // Relative URL since it's served from same server
         const ITEMS_PER_PAGE = 10;
 
         // State
