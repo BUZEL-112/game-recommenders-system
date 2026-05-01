@@ -21,7 +21,7 @@
 
 ## Overview
 
-GameLens is a multi-model recommendation system that analyzes user–game interaction data from Steam to deliver accurate, personalized suggestions. It supports three complementary machine learning strategies:
+RSgame-system is a multi-model recommendation system that analyzes user–game interaction data from Steam to deliver accurate, personalized suggestions. It supports three complementary machine learning strategies:
 
 1. **Autoencoder** — Content-based recommendations derived from game features (genres, tags)
 2. **Matrix Factorization** — Collaborative filtering built on user–item interaction patterns
@@ -56,7 +56,7 @@ GameLens is a multi-model recommendation system that analyzes user–game intera
 ## Project Structure
 
 ```
-gamelens/
+RSgame-system/
 ├── app.py                          # Flask API server
 ├── requirements.txt                # Python dependencies
 ├── configs/
@@ -106,7 +106,7 @@ gamelens/
 
 ```bash
 git clone <repository-url>
-cd gamelens
+cd RSgame-system
 ```
 
 ### 2. Create a virtual environment
@@ -328,8 +328,8 @@ flake8 src/
 ### Docker
 
 ```bash
-docker build -t gamelens:latest .
-docker run -p 5000:5000 gamelens:latest
+docker build -t RSgame-system:latest .
+docker run -p 5000:5000 RSgame-system:latest
 ```
 
 ### Production (Gunicorn)
