@@ -1,6 +1,6 @@
-# GameLens
+# Game Recommendation System 
 
-> AI-powered Steam game recommendation engine — personalized, scalable, production-ready.
+> ML-powered Steam game recommendation engine — personalized, scalable, production-ready.
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/FAKER-112/game-recommenders-system)
 
