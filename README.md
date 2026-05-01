@@ -1,8 +1,8 @@
+# GameLens
+
+> AI-powered Steam game recommendation engine — personalized, scalable, production-ready.
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/FAKER-112/game-recommenders-system)
-
-# Game Recommendation System 
-
-A comprehensive recommendation system for Steam games built with TensorFlow, featuring three distinct machine learning models (Autoencoder, Matrix Factorization, and TFRS) and a production-ready Flask API.
 
 ## Table of Contents
 
@@ -21,268 +21,186 @@ A comprehensive recommendation system for Steam games built with TensorFlow, fea
 
 ## Overview
 
-This project implements a multi-model game recommendation system that analyzes user-game interactions from Steam to provide:
-- **Personalized Recommendations**: Suggest games based on user play history
-- **Content-Based Similarity**: Find similar games based on genres and tags
-- **Hybrid Approaches**: Combine collaborative and content-based filtering
+GameLens is a multi-model recommendation system that analyzes user–game interaction data from Steam to deliver accurate, personalized suggestions. It supports three complementary machine learning strategies:
 
-The system supports three different recommendation models:
-1. **Autoencoder** - Content-based recommendations using game features
-2. **Matrix Factorization** - Collaborative filtering based on user-item interactions
-3. **TFRS (TensorFlow Recommenders)** - Scalable two-tower retrieval model
+1. **Autoencoder** — Content-based recommendations derived from game features (genres, tags)
+2. **Matrix Factorization** — Collaborative filtering built on user–item interaction patterns
+3. **TFRS (TensorFlow Recommenders)** — Scalable two-tower retrieval for large catalogs
 
 ## Features
 
- **Multiple Recommendation Strategies**
-- User-based collaborative filtering (MF, TFRS)
+**Multiple Recommendation Strategies**
+- User-based collaborative filtering (Matrix Factorization, TFRS)
 - Item-based content similarity (Autoencoder)
 - Hybrid recommendation approaches
 
- **Complete ML Pipeline**
-- Automated data ingestion from public datasets
+**Complete ML Pipeline**
+- Automated data ingestion from public Steam datasets
 - Feature engineering and preprocessing
 - Model training with MLflow experiment tracking
 - Comprehensive evaluation metrics
 
- **Production-Ready API**
+**Production-Ready API**
 - RESTful Flask API with CORS support
 - Batch recommendation endpoints
 - Pagination and search functionality
-- Health monitoring and error handling
+- Health monitoring and structured error handling
 
- **Experiment Tracking**
+**Experiment Tracking**
 - MLflow integration for all training runs
-- Hyperparameter logging
-- Metric visualization and comparison
+- Hyperparameter logging and metric visualization
 
- **Containerization**
-- Docker support for easy deployment
-- Environment consistency
+**Containerization**
+- Docker support for consistent deployment
 
 ## Project Structure
 
 ```
-game-recommenders-system/
+gamelens/
 ├── app.py                          # Flask API server
 ├── requirements.txt                # Python dependencies
-├── configs/                        # Configuration files
+├── configs/
 │   ├── config.yaml                 # Data pipeline config
 │   ├── model_params.yaml           # Model hyperparameters
 │   └── pipeline_params.yaml        # Pipeline orchestration
 ├── src/
-│   ├── data/                       # Data processing modules
+│   ├── data/
 │   │   ├── load_data.py            # Data ingestion
 │   │   ├── clean_data.py           # Data cleaning
 │   │   └── feature_engineering.py  # Feature creation
-│   ├── models/                     # Model definitions
+│   ├── models/
 │   │   ├── build_model.py          # Model architectures
 │   │   ├── train_model.py          # Training logic
 │   │   └── evaluate_model.py       # Evaluation metrics
-│   ├── pipeline/                   # Pipeline orchestration
+│   ├── pipeline/
 │   │   ├── train_pipeline.py       # End-to-end training
 │   │   ├── predict_pipeline.py     # Inference engine
 │   │   └── evaluate_pipeline.py    # Model evaluation
-│   └── utils/                      # Utility functions
+│   └── utils/
 │       ├── logger.py               # Logging configuration
 │       └── exception.py            # Custom exceptions
-├── data/                           # Data directories
+├── data/
 │   ├── raw/                        # Raw downloaded data
 │   └── processed/                  # Processed datasets
-├── artifacts/                      # Model artifacts
+├── artifacts/
 │   ├── models/                     # Trained models
 │   └── context/                    # Encoders and vocabularies
 ├── mlruns/                         # MLflow experiment logs
 ├── notebooks/                      # Jupyter notebooks
 ├── templates/                      # HTML templates
-└── static/                         # Static files (CSS, JS)
+└── static/                         # Static assets
 ```
 
 ## Prerequisites
 
-- **Python**: 3.8 or higher
-- **pip**: Python package manager
-- **Git**: Version control
-- **Disk Space**: ~5GB for datasets and models
-- **RAM**: Minimum 8GB (16GB recommended for training)
-- **GPU**: Optional but recommended for faster training
+- **Python** 3.8 or higher
+- **pip** package manager
+- **Git**
+- **Disk Space** ~5 GB for datasets and models
+- **RAM** Minimum 8 GB (16 GB recommended for training)
+- **GPU** Optional but recommended for TFRS training
 
 ## Installation
 
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone <repository-url>
-cd project_007
+cd gamelens
 ```
 
-### 2. Create Virtual Environment
+### 2. Create a virtual environment
 
 ```bash
-# Using venv
 python -m venv venv
-
-# Activate on Windows
-venv\Scripts\activate
-
-# Activate on Linux/Mac
-source venv/bin/activate
+source venv/bin/activate        # Linux / macOS
+venv\Scripts\activate           # Windows
 ```
 
-### 3. Install Dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Verify Installation
+### 4. Verify installation
 
 ```bash
 python -c "import tensorflow as tf; print(f'TensorFlow: {tf.__version__}')"
-python -c "import tensorflow_recommenders as tfrs; print('TFRS installed successfully')"
+python -c "import tensorflow_recommenders as tfrs; print('TFRS ready')"
 ```
 
 ## Quick Start
 
-### Option 1: Use Pre-trained Models (Fastest)
-
-If you have pre-trained models in the `artifacts/` directory:
+### Option 1 — Use pre-trained models
 
 ```bash
-# Start the Flask API server
 python app.py
 ```
 
-The API will be available at `http://localhost:5000`
+The API will be available at `http://localhost:5000`.
 
-### Option 2: Train from Scratch
-
-#### Step 1: Run Complete Training Pipeline
+### Option 2 — Train from scratch
 
 ```bash
-# Train all models (this will take 30-60 minutes)
+# Full pipeline (30–60 min)
 python src/pipeline/train_pipeline.py
-```
 
-This will:
-1. Download raw Steam game data (~2GB)
-2. Clean and process the data
-3. Engineer features
-4. Train all three models
-5. Save models and artifacts
-6. Log experiments to MLflow
-
-#### Step 2: Evaluate Models
-
-```bash
-# Evaluate trained models
+# Evaluate
 python src/pipeline/evaluate_pipeline.py
-```
 
-#### Step 3: Start the API Server
-
-```bash
-# Launch Flask application
+# Serve
 python app.py
 ```
 
-### Option 3: Step-by-Step Training
-
-For more control, run each stage separately:
+### Option 3 — Step-by-step
 
 ```bash
-# 1. Data Ingestion
 python -c "from src.data.load_data import LoadDataService; LoadDataService().run()"
-
-# 2. Data Cleaning
 python -c "from src.data.clean_data import CleanDataService; CleanDataService().run()"
-
-# 3. Feature Engineering
 python -c "from src.data.feature_engineering import FeatureEngineeringService; FeatureEngineeringService().run()"
-
-# 4. Train specific model
 python -c "from src.models.train_model import ModelTrainingService; ModelTrainingService(model_type='tfrs').run()"
-
-# 5. Evaluate model
 python -c "from src.models.evaluate_model import ModelEvaluationService; ModelEvaluationService(model_type='tfrs').run()"
 ```
 
 ## Usage Guide
 
-### Training Models
-
-#### Using Python API
+### Training
 
 ```python
 from src.pipeline.train_pipeline import TrainingPipeline
 
-# Train Matrix Factorization model
-mf_pipeline = TrainingPipeline(model_type='matrix_factorization')
-mf_pipeline.train_model()
-
-# Train TFRS model
-tfrs_pipeline = TrainingPipeline(model_type='tfrs')
-tfrs_pipeline.train_model()
-
-# Train Autoencoder model
-ae_pipeline = TrainingPipeline(model_type='autoencoder')
-ae_pipeline.train_model()
+TrainingPipeline(model_type='matrix_factorization').train_model()
+TrainingPipeline(model_type='tfrs').train_model()
+TrainingPipeline(model_type='autoencoder').train_model()
 ```
 
-### Making Predictions
-
-#### Using Python API
+### Inference
 
 ```python
 from src.pipeline.predict_pipeline import PredictionPipeline
 
-# Initialize predictor
 predictor = PredictionPipeline(model_type='tfrs')
 
-# Get user recommendations
-recommendations = predictor.recommend(
-    user_id='76561197970982479',
-    n_rec=10
-)
-print("Recommended games:", recommendations)
+# Personalized recommendations
+recs = predictor.recommend(user_id='76561197970982479', n_rec=10)
 
-# Find similar items
-similar_games = predictor.get_similar_items(
-    item_name='Counter-Strike',
-    k=5
-)
-print("Similar games:", similar_games)
+# Content similarity
+similar = predictor.get_similar_items(item_name='Counter-Strike', k=5)
 ```
 
-#### Using REST API
+### REST API
 
 ```bash
-# Get user recommendations
+# User recommendations
 curl -X POST http://localhost:5000/recommend_user \
   -H "Content-Type: application/json" \
-  -d '{
-    "model_name": "tfrs",
-    "user_id": "76561197970982479",
-    "n_rec": 10
-  }'
+  -d '{"model_name": "tfrs", "user_id": "76561197970982479", "n_rec": 10}'
 
-# Find similar items
+# Item similarity
 curl -X POST http://localhost:5000/recommend_item \
   -H "Content-Type: application/json" \
-  -d '{
-    "model_name": "autoencoder",
-    "item_name": "Counter-Strike",
-    "k": 5
-  }'
-```
-
-### Viewing Experiments
-
-```bash
-# Start MLflow UI
-mlflow ui
-
-# Access at http://localhost:5000
-# View experiments, compare metrics, and analyze runs
+  -d '{"model_name": "autoencoder", "item_name": "Counter-Strike", "k": 5}'
 ```
 
 ## API Documentation
@@ -295,13 +213,20 @@ http://localhost:5000
 
 ### Endpoints
 
-#### 1. Health Check
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Server and model status |
+| GET | `/api/userlist` | All available user IDs |
+| GET | `/api/gamedata` | Paginated game catalog |
+| GET | `/api/game/<id>` | Single game detail |
+| POST | `/recommend_user` | User-based recommendations |
+| POST | `/recommend_item` | Item similarity search |
+| POST | `/batch_recommend` | Batch recommendations |
+| GET | `/model_info/<name>` | Model metadata |
+| GET | `/available_models` | Loaded model status |
 
-```http
-GET /health
-```
+### Health check
 
-**Response:**
 ```json
 {
   "status": "healthy",
@@ -310,48 +235,10 @@ GET /health
 }
 ```
 
-#### 2. Get User List
+### User recommendations
 
-```http
-GET /api/userlist
-```
-
-**Response:**
+**Request**
 ```json
-{
-  "status": "success",
-  "users": ["user1", "user2", ...],
-  "count": 100
-}
-```
-
-#### 3. Get Game Data
-
-```http
-GET /api/gamedata?start=0&end=10&search=counter
-```
-
-**Parameters:**
-- `start` (optional): Starting index (default: 0)
-- `end` (optional): Ending index (default: 10)
-- `search` (optional): Search term for filtering
-
-**Response:**
-```json
-{
-  "status": "success",
-  "games": [{...}],
-  "total_games": 1000,
-  "has_more": true
-}
-```
-
-#### 4. User Recommendations
-
-```http
-POST /recommend_user
-Content-Type: application/json
-
 {
   "model_name": "tfrs",
   "user_id": "76561197970982479",
@@ -359,24 +246,22 @@ Content-Type: application/json
 }
 ```
 
-**Response:**
+**Response**
 ```json
 {
   "status": "success",
   "user_id": "76561197970982479",
   "model_used": "tfrs",
-  "recommendations": ["Game 1", "Game 2", ...],
-  "recommendations_with_details": [{...}],
+  "recommendations": ["Game A", "Game B"],
+  "recommendations_with_details": [{ ... }],
   "count": 10
 }
 ```
 
-#### 5. Item Similarity
+### Item similarity
 
-```http
-POST /recommend_item
-Content-Type: application/json
-
+**Request**
+```json
 {
   "model_name": "autoencoder",
   "item_name": "Counter-Strike",
@@ -384,23 +269,10 @@ Content-Type: application/json
 }
 ```
 
-**Response:**
+### Batch recommendations
+
+**Request**
 ```json
-{
-  "status": "success",
-  "query_item": "Counter-Strike",
-  "similar_items": ["Game 1", "Game 2", ...],
-  "similar_items_with_details": [{...}],
-  "count": 5
-}
-```
-
-#### 6. Batch Recommendations
-
-```http
-POST /batch_recommend
-Content-Type: application/json
-
 {
   "model_name": "tfrs",
   "user_ids": ["user1", "user2", "user3"],
@@ -408,201 +280,119 @@ Content-Type: application/json
 }
 ```
 
-**Response:**
-```json
-{
-  "status": "success",
-  "results": {
-    "user1": ["Game 1", "Game 2", ...],
-    "user2": ["Game 3", "Game 4", ...]
-  },
-  "total_users": 2,
-  "successful": 2
-}
-```
-
 ## Configuration
 
-### Model Hyperparameters
-
-Edit `configs/model_params.yaml` to adjust model settings:
+### `configs/model_params.yaml`
 
 ```yaml
 model_params:
   autoencoder:
     encoding_dim: 64
     hidden_layers: [512, 256]
-  
+
   matrix_factorization:
     embedding_size: 50
     hidden_layers: [512, 256]
-  
+
   tfrs:
     embedding_size: 50
     hidden_layers: [512, 256]
 ```
 
-### Data Pipeline Settings
-
-Edit `configs/config.yaml` for data processing:
+### `configs/config.yaml`
 
 ```yaml
 data_ingestion:
   user_item_dataset_download_url: "<URL>"
   raw_data_dir: "data/raw"
-
-data_cleaning:
-  processed_dir: "data/processed"
-```
-
-### Training Configuration
-
-Edit `configs/model_params.yaml` for training settings:
-
-```yaml
-model_training:
-  epochs: 10
-  batch_size: 32
-  root_dir: 'artifacts/models'
 ```
 
 ## Development
 
-### Running Tests
-
 ```bash
-# Run all tests
+# Tests
 python -m pytest tests/
 
-# Run specific test file
-python -m pytest tests/test_models.py
-
-# Run with coverage
+# Coverage
 python -m pytest --cov=src tests/
-```
 
-### Code Quality
-
-```bash
-# Format code
+# Formatting
 black src/
 
-# Lint code
+# Linting
 flake8 src/
-
-# Type checking
-mypy src/
-```
-
-### Development Server
-
-```bash
-# Run Flask in debug mode
-export FLASK_ENV=development  # Linux/Mac
-set FLASK_ENV=development     # Windows
-
-python app.py
 ```
 
 ## Deployment
 
-### Docker Deployment
+### Docker
 
 ```bash
-# Build Docker image
-docker build -t game-recommender:latest .
-
-# Run container
-docker run -p 5000:5000 game-recommender:latest
+docker build -t gamelens:latest .
+docker run -p 5000:5000 gamelens:latest
 ```
 
-### Production Considerations
+### Production (Gunicorn)
 
-1. **Environment Variables**:
-   ```bash
-   export FLASK_ENV=production
-   export MLFLOW_TRACKING_URI=<your-mlflow-server>
-   ```
+```bash
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+```
 
-2. **WSGI Server**:
-   ```bash
-   # Use Gunicorn for production
-   pip install gunicorn
-   gunicorn -w 4 -b 0.0.0.0:5000 app:app
-   ```
+### AWS ECS (Terraform)
 
-3. **Model Serving**:
-   - Consider TensorFlow Serving for high-throughput
-   - Use Redis for caching recommendations
-   - Implement request queuing for batch processing
-
-4. **Monitoring**:
-   - Set up application logging
-   - Monitor API response times
-   - Track model performance metrics
+```bash
+cd deployment/terraform
+terraform init
+terraform apply
+```
 
 ## Model Comparison
 
-| Model | Use Case | Latency | Best For |
-|-------|----------|---------|----------|
-| **TFRS** | User recommendations | ~1-5ms | Large-scale retrieval, known users |
-| **Matrix Factorization** | User recommendations | ~5-20ms | Personalized ranking |
-| **Autoencoder** | Item similarity | ~10-50ms | Content-based, cold-start items |
+| Model | Use Case | Avg. Latency | Best For |
+|-------|----------|-------------|----------|
+| **TFRS** | User recommendations | ~1–5 ms | Large-scale retrieval, known users |
+| **Matrix Factorization** | User recommendations | ~5–20 ms | Personalized ranking |
+| **Autoencoder** | Item similarity | ~10–50 ms | Content-based, cold-start items |
 
 ## Troubleshooting
 
-### Common Issues
-
-**1. Models not loading**
+**Models not loading**
 ```bash
-# Ensure models are trained
 python src/pipeline/train_pipeline.py
 ```
 
-**2. Data not found**
+**Data not found**
 ```bash
-# Re-run data ingestion
 python -c "from src.data.load_data import LoadDataService; LoadDataService().run()"
 ```
 
-**3. Port already in use**
+**Port already in use**
 ```bash
-# Change port in app.py or kill existing process
-lsof -i :5000  # Linux/Mac
+lsof -i :5000        # Linux / macOS
 netstat -ano | findstr :5000  # Windows
 ```
 
-**4. Out of memory during training**
-```bash
-# Reduce batch size in configs/model_params.yaml
-# Use smaller hidden layers
-# Process data in chunks
-```
+**Out of memory during training** — reduce `batch_size` or `hidden_layers` in `configs/model_params.yaml`.
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
 5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
-- **Dataset**: Steam game data from [UCSD Public Datasets](https://cseweb.ucsd.edu/~jmcauley/)
-- **Framework**: TensorFlow and TensorFlow Recommenders
-- **Experiment Tracking**: MLflow
-
-## Contact
-
-For questions or support, please open an issue on GitHub.
+- **Dataset** — Steam data from [UCSD McAuley Lab](https://cseweb.ucsd.edu/~jmcauley/)
+- **Framework** — TensorFlow and TensorFlow Recommenders
+- **Experiment Tracking** — MLflow
 
 ---
 
-**Built with ___ using TensorFlow, Flask, and MLflow**
-**my model is not here**
-**made some changes the but haavednt completed then yet**
+Built with TensorFlow, Flask, and MLflow.
